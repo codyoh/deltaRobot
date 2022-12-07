@@ -2,11 +2,11 @@
 #include <MultiStepper.h>
 
 //define pin connections
-const int directionPin1 = 4;
-const int stepPin1 = 5;
+const int directionPin1 = 2;
+const int stepPin1 = 3;
 
-const int directionPin2 = 2;
-const int stepPin2 = 3;
+const int directionPin2 = 4;
+const int stepPin2 = 5;
 
 // define motor interface type
 #define motorInterfaceType 1
@@ -25,39 +25,46 @@ int convertAngleToSteps(int angle) {
 void setup() {
 
   //serial port
-//    Serial.begin(115200);
+   Serial.begin(115200);
   
   // set the maximum speed, acceleration factor,
   // initial speed, and the target position
-//  stepper1.setMaxSpeed(1000);
-//  stepper1.setSpeed(100);
-//  stepper1.setAcceleration(50);
+ stepper1.setMaxSpeed(1000);
+ stepper1.setSpeed(100);
+ stepper1.setAcceleration(50);
 //  stepper1.moveTo(200);
-  
-  stepper2.setMaxSpeed(1000);
-//  stepper2.setSpeed(100);
-//  stepper2.setAcceleration(50);
-//  stepper2.moveTo(200);
+
 
 }
 
 void loop() {
-stepper2.setSpeed(100);
-stepper2.runSpeed();
-//  stepper2.run();
+// stepper1.setSpeed(100);
+// stepper1.runSpeed();
+//  stepper1.run();
 //  delay(500);
 
-//  if (Serial.available() > 0) {
-//    String msg = Serial.readString();
-//    int number = msg.toInt();
-//    int steps = convertAngleToSteps(number);
-//    Serial.println(steps);
+ if (Serial.available() > 0) {
+   String msg = Serial.readString();
+   
+   int number = msg.toInt();
+   int steps = convertAngleToSteps(number);
+   Serial.println(steps);
+  // Serial.print("message received");
+  // Serial.println(msg);
 
+  // if (number == 0) {
+  //   stepper1.setSpeed(0);
+  // }
+
+  // else {
+   stepper1.moveTo(steps);
+  //  stepper1.run();
+  // }
+
+ }
     // // Move the motor one step
 //    stepper1.moveTo(steps);
-//    stepper1.run();
-  //  stepper2.run();
-//  }
+   stepper1.run();
   
 
 }
