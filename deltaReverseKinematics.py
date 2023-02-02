@@ -4,14 +4,14 @@ import serial
 
 E_x = 0
 E_y = 0
-E_z = -57
+E_z = -100
 
-theta1 = 0
+theta = 45
 
 r_b = 100
-r_e = 30
-l_b = 140
-l_f = 170
+r_e = 35
+l_b = 100
+l_f = 150
 
 h1 = r_b
 k1 = 0
@@ -37,6 +37,12 @@ def quadraticEqn(a, b ,c):
 
 y1 = quadraticEqn(a, b, c)[0]
 y2 = quadraticEqn(a, b, c)[1]
+
+def z0calculator(theta, l_b, l_f, r_b, r_e):
+    z0 = (l_b * math.sin(theta)) + math.sqrt(l_f**2 - (r_b - r_e + l_b*math.cos(theta))**2 )
+    return z0
+
+z0 = z0calculator(theta, l_b, l_f, r_b, r_e)
 
 
 print("gamma = ", gamma)
@@ -66,16 +72,22 @@ print("z_j1_2 = ", z_j1_2)
 
 theta1 = math.atan2(z_j1_1, y_j1_1) * 57.29
 theta2 = math.atan2(z_j1_2, y_j1_2) * 57.29
+print("theta1 = ", theta1)
+print("theta2 = ", theta2)
 
 output = f"({x1}, {y1}) => theta = {theta1}  \n  ({x2}, {y2}) => theta = {theta2} "
 
+
+print("z0 ", z0)
+
+print("theta by analysis: ", math.atan2(-60.4, 79.7)*57.29)
 print(output)
 
-print("atan test (3, 4): ", math.atan2(3, (3 * math.sqrt(3))) * 57.29)
-print("asin test (3/5): ", math.asin(3/6) * 57.29)
+# print("atan test (3, 4): ", math.atan2(3, (3 * math.sqrt(3))) * 57.29)
+# print("asin test (3/5): ", math.asin(3/6) * 57.29)
 
 theta2Test = math.asin(z_j1_2/l_b) * 57.29
-print("theta2Test = ", theta2Test)
+# print("theta2Test = ", theta2Test)
 
 theta1Test = math.asin(z_j1_1/l_b)
-print("theta1Test = ", theta1Test)
+# print("theta1Test = ", theta1Test)
