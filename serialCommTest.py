@@ -3,7 +3,7 @@ import astropy
 import serial
 
 #create a serial object
-arduinoData = serial.Serial('/dev/cu.usbmodem14201', 115200)
+arduinoData = serial.Serial('COM6', 115200)
 #wait one millisecond for the serial object to finish instantiating
 time.sleep(1)
 
