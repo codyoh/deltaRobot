@@ -5,6 +5,7 @@ import serial
 E_x = 0
 E_y = 0
 E_z = -150
+toolZOffset = 20
 
 # theta = -49.2
 
@@ -73,13 +74,17 @@ def rotatePt(x0, y0, angle):
     return x1, y1
 
 def findReverseKinematicAngles(E_x, E_y, E_z):
-    
+    #alter E_z to take into account toolZOffset
+    E_z = E_z - toolZOffset
+
     theta2InputCoordinates = rotatePt(E_x, E_y, 120/57.29)
     theta3InputCoordinates = rotatePt(E_x, E_y, -120/57.29)
 
-    th1 = findOneArmAngle(E_x, E_y, E_z)
-    th2 = findOneArmAngle(theta2InputCoordinates[0], theta2InputCoordinates[1], E_z)
-    th3 = findOneArmAngle(theta3InputCoordinates[0], theta3InputCoordinates[1], E_z)
+    #the negative signs on these are a hacky fix
+    #need to update equations above so that the angles come out positive
+    th1 = -findOneArmAngle(E_x, E_y, E_z)
+    th2 = -findOneArmAngle(theta2InputCoordinates[0], theta2InputCoordinates[1], E_z)
+    th3 = -findOneArmAngle(theta3InputCoordinates[0], theta3InputCoordinates[1], E_z)
 
     print(th1, th2, th3)
     return th1, th2, th3

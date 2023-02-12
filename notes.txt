@@ -1,0 +1,23 @@
+
+
+from python, send an array of positions and speeds to arduino
+    input: path eqn parametrized for t
+            desired t or speed
+    subdivide path into equal time intervals
+        initially just divide it into 50 intervals
+        calculate position for each interval and add it to array
+        calculate speed from this position to next, add this to array
+            Xcalculate distance
+
+
+    output: [[x0, y0, z0, v0], [x1, y1, z1, v1], [x2, y2, z2, v2],...]
+
+
+in arduino, loop through array of steps
+    convert angle to step
+    calculate speed of each motor bsed on speed of segment
+    respectively set moveTo and speed of motors
+    check if currentPosition == convertAnglesToSteps(targetPosition)
+        if yes, next step
+        if no, pass
+    If stepQueue is empty, send a finished signal to python
